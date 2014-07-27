@@ -1,0 +1,5 @@
+template: Hello, %s!
+defaultName: Stranger
+mongohost: localhost
+mongoport: 27017
+mongodb: UserAccount

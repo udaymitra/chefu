@@ -1,20 +1,20 @@
 package com.chefu.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.vz.mongodb.jackson.Id;
-import net.vz.mongodb.jackson.ObjectId;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by tanvirushabh on 7/26/14.
  */
+@JsonFormat
 public class UserAccount {
 
-    @Id @ObjectId
+    @Id
     String emailAddress;
 
     @NotEmpty
     String password ;
-
 
     public String getEmailAddress() {
         return emailAddress;
