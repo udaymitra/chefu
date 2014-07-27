@@ -15,6 +15,7 @@ public class UserAccount {
     @NotEmpty
     String password ;
 
+
     public String getEmailAddress() {
         return emailAddress;
     }
