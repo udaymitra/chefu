@@ -4,17 +4,19 @@ import com.chefu.configuration.ChefuConfiguration;
 import com.chefu.model.UserAccount;
 import com.chefu.mongo.MongoManaged;
 import com.chefu.resource.ChefuResource;
+import com.chefu.resource.LandingPageResource;
 import com.chefu.resource.UserDAO;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 import net.vz.mongodb.jackson.JacksonDBCollection;
 
 public class ChefuApplication extends Application<ChefuConfiguration> {
     public static void main(String[] args) throws Exception {
-        new ChefuApplication().run(args);
+        new ChefuApplication().run(new String[]{"server", "src/main/resources/chefu.yml"});
     }
 
     @Override
@@ -24,6 +26,7 @@ public class ChefuApplication extends Application<ChefuConfiguration> {
 
     @Override
     public void initialize(Bootstrap<ChefuConfiguration> bootstrap) {
+        bootstrap.addBundle(new ViewBundle());
     }
 
     @Override
@@ -48,6 +51,8 @@ public class ChefuApplication extends Application<ChefuConfiguration> {
                 new TemplateHealthCheck(configuration.getTemplate());
         environment.healthChecks().register("template", healthCheck);
         environment.jersey().register(chefuResource);
+        final LandingPageResource landingPageResource = new LandingPageResource();
+        environment.jersey().register(landingPageResource);
     }
 
 }
