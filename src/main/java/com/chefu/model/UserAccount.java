@@ -1,6 +1,7 @@
 package com.chefu.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.vz.mongodb.jackson.Id;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -16,19 +17,26 @@ public class UserAccount {
     @NotEmpty
     String password ;
 
-    public String getEmailAddress() {
+  public UserAccount(String emailAddress, String password) {
+    this.emailAddress = emailAddress;
+    this.password = password;
+  }
+
+  @JsonProperty
+  public String getEmailAddress() {
         return emailAddress;
     }
 
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
+  public void setEmailAddress(String emailAddress) {
+      this.emailAddress = emailAddress;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  @JsonProperty
+  public String getPassword() {
+      return password;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setPassword(String password) {
+      this.password = password;
+  }
 }
