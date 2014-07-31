@@ -40,7 +40,7 @@ public class ChefuApplication extends Application<ChefuConfiguration> {
 
   @Override
   public void run(ChefuConfiguration configuration,
-                  Environment environment) {
+                  Environment environment) throws Exception {
     Mongo mongo = new Mongo(configuration.mongohost, configuration.mongoport);
     DB db = mongo.getDB(configuration.mongodb);
     JacksonDBCollection<UserAccount, String> userDBCollection =
