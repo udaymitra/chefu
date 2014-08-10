@@ -8,20 +8,23 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <title>Signin Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
 
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="assets/bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="assets/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]><script src="bootstrap/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="bootstrap/js/ie-emulation-modes-warning.js"></script>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="bootstrap/js/ie10-viewport-bug-workaround.js"></script>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -33,16 +36,46 @@
 <body>
 
 <script>
+
+var postJSON = function(endpoint, data, onSuccess, onFailure) {
+    console.log("Issueing query: " + JSON.stringify(data));
+    $.ajax({
+      type: "POST",
+      url: endpoint,
+      data: JSON.stringify(data),
+      success: onSuccess,
+      error: onFailure,
+      dataType: 'json',
+      contentType:"application/json; charset=utf-8",
+    });
+  };
+
+   // Executes a query in the background, invoking callbacks on results.
+  var firstPostQuery = function(data, onSuccess, onFailure) {
+    postJSON('/login', data, onSuccess, onFailure);
+  };
+
+
 function getCredentials() {
     var email = document.getElementById('email').value;
     var password = document.getElementById("password").value;
     document.getElementById("userid").innerHTML = email;
 
-    $.post("AJAX_POST_URL",
-    {name:"#email",pwd:"#password"},
-    function(data, textStatus, jqXHR)
+    var creds = {"emailAddress":email, "password":password};
+    var callbackFunction = function(data, textStatus, jqXHR)
     {
-          //data: Received from server
+        alert(data + " return code is:" + textStatus);
+    };
+
+
+firstPostQuery(creds,
+  function(data, textStatus, jqXHR)
+    {
+        alert("login " + data.response);
+    },
+  function(data, textStatus, jqXHR)
+    {
+        alert("post query failed");
     });
 }
 </script>
@@ -53,8 +86,8 @@ function getCredentials() {
 
     <form class="form-signin" role="form" id="signInFormName">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input id="email" class="form-control" placeholder="Email address" required autofocus>
-        <input id="password" class="form-control" placeholder="Password" required>
+        <input type="email" id="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" id="password" class="form-control" placeholder="Password" required>
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me

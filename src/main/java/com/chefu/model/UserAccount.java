@@ -17,9 +17,7 @@ public class UserAccount {
     @NotEmpty
     String password ;
 
-  public UserAccount(String emailAddress, String password) {
-    this.emailAddress = emailAddress;
-    this.password = password;
+  public UserAccount() {
   }
 
   @JsonProperty

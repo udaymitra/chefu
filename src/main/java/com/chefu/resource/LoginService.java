@@ -4,15 +4,18 @@ import com.chefu.model.UserAccount;
 import com.chefu.view.LoginView;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
+import jdk.nashorn.internal.parser.JSONParser;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.HashMap;
+import java.util.Map;
 
 @Path("/login")
-@Produces(MediaType.TEXT_HTML)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 
 public class LoginService {
   public String templateName;
@@ -21,9 +24,15 @@ public class LoginService {
     this.templateName = templateName;
   }
 
-  @GET
+  @POST
   @Timed
-  public LoginView sayHello(@QueryParam("userid") Optional<String> userid) {
-    return new LoginView(templateName, new UserAccount(userid.get(), "password"));
+  public Response sayHello(@Valid UserAccount userAccount) {
+    Map<String, String> out = new HashMap<String, String>();
+    if (userAccount.getEmailAddress().equals("uday")) {
+      out.put("response", "success");
+    } else {
+      out.put("response", "failure");
+    }
+    return Response.ok(out).build();
   }
 }
