@@ -9,6 +9,7 @@
     <link rel="icon" href="favicon.ico">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="utils.js"></script>
 
     <title>Signin Template for Bootstrap</title>
 
@@ -37,23 +38,9 @@
 
 <script>
 
-var postJSON = function(endpoint, data, onSuccess, onFailure) {
-    console.log("Issueing query: " + JSON.stringify(data));
-    $.ajax({
-      type: "POST",
-      url: endpoint,
-      data: JSON.stringify(data),
-      success: onSuccess,
-      error: onFailure,
-      dataType: 'json',
-      contentType:"application/json; charset=utf-8",
-    });
-  };
-
-   // Executes a query in the background, invoking callbacks on results.
-  var firstPostQuery = function(data, onSuccess, onFailure) {
+var loginPostQuery = function(data, onSuccess, onFailure) {
     postJSON('/login', data, onSuccess, onFailure);
-  };
+};
 
 
 function getCredentials() {
@@ -68,7 +55,7 @@ function getCredentials() {
     };
 
 
-firstPostQuery(creds,
+  loginPostQuery(creds,
   function(data, textStatus, jqXHR)
     {
         alert("login " + data.response);

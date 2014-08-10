@@ -1,4 +1,4 @@
-<#-- @ftlvariable name="" type="com.chefu.view.LoginView" -->
+<#-- @ftlvariable name="" type="com.chefu.views.LoginView" -->
 <html>
 <body>
 <!-- calls getPerson().getName() and sanitizes it -->

@@ -1,10 +1,7 @@
 package com.chefu.resource;
 
 import com.chefu.model.UserAccount;
-import com.chefu.view.LoginView;
 import com.codahale.metrics.annotation.Timed;
-import com.google.common.base.Optional;
-import jdk.nashorn.internal.parser.JSONParser;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;

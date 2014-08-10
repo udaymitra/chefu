@@ -1,4 +1,4 @@
-package com.chefu.view;
+package com.chefu.views;
 
 import com.chefu.model.UserAccount;
 import io.dropwizard.views.View;
