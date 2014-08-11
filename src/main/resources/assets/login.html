@@ -37,16 +37,13 @@
 <body>
 
 <script>
-
 var loginPostQuery = function(data, onSuccess, onFailure) {
     postJSON('/login', data, onSuccess, onFailure);
 };
 
-
 function getCredentials() {
     var email = document.getElementById('email').value;
     var password = document.getElementById("password").value;
-    document.getElementById("userid").innerHTML = email;
 
     var creds = {"emailAddress":email, "password":password};
     var callbackFunction = function(data, textStatus, jqXHR)
@@ -58,7 +55,13 @@ function getCredentials() {
   loginPostQuery(creds,
   function(data, textStatus, jqXHR)
     {
-        alert("login " + data.response);
+        if (data.response == "success") {
+            var customURL = '/assets/mainPage.html';
+            window.location.href = customURL;
+            window.location.assign(customURL);
+        } else {
+            alert("user id and/or password are wrong. Please try again.");
+        }
     },
   function(data, textStatus, jqXHR)
     {
@@ -66,8 +69,6 @@ function getCredentials() {
     });
 }
 </script>
-
-<p id="userid">No user id entered</p>
 
 <div class="container">
 
@@ -81,6 +82,7 @@ function getCredentials() {
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="getCredentials(); return false;">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="getCredentials(); return false;">Create account</button>
     </form>
 
 </div> <!-- /container -->
